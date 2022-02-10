@@ -1,0 +1,175 @@
+<!doctype html><html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<title>Reactで多言語対応する</title>
+<meta name=description content="takashi blog">
+<meta name=author content="takashi">
+<link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png>
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Reactで多言語対応する">
+<meta property="og:site_name" content="takashi Blog">
+<meta property="og:url" content="https://takashitkg.github.io/blog/posts/react-i18n-sample/">
+<meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:Reactで多言語対応する,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png">
+<link href="/css/main.min.5e615d6a4c5a4fc7332ec50e55b254eeb390475ffe6322e417a64e32c7ce8efd.css" rel=stylesheet>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8MXV1Y9Q34')</script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+<header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full">
+<div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div>
+<div id=navcontent class="container mx-auto md:px-52 py-3 px-8">
+<a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">
+takashi Blog
+</a>
+<nav>
+<ul class="flex justify-start">
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a>
+</li>
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container mx-auto md:px-52 px-8 pt-28">
+<article>
+<h1 class="text-3xl mb-1">Reactで多言語対応する</h1>
+<time class=text-gray-600 datetime=2020-11-07T05:35:07>2020.11.07 05:35</time>
+<div class="mt-4 prose">
+<p>こんにちは、たかしです。</p>
+<p>Reactで多言語対応をする機会があったので、方法についてまとめます。</p>
+<p><a href=https://react.i18next.com/ target=_blank>react-i18next</a> を使います。</p>
+<p>create-react-appで作ったプロジェクトをいじっていきます。</p>
+<p>また、今回書いたコードはgithubに上げてます。</p>
+<p><a href=https://github.com/takashiTkg/i18n-sample target=_blank>takashiTkg/i18n-sample</a></p>
+<h2 id=準備>準備</h2>
+<p>とりあえずcreate-react-appします。</p>
+<p>npx create-react-app i18n-sample
+今回使うreact-i18nextと必要なライブラリを追加します。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>yarn add react-i18next i18next i18next-browser-languagedetector i18next-http-backend
+</code></pre></div><h2 id=言語ファイルの作成>言語ファイルの作成</h2>
+<p>プロジェクトのpublicフォルダ内に言語ファイルを配置していきます。</p>
+<p>日本語ファイルから</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:public/locales/ja/translation.json data-lang=json:public/locales/ja/translation.json>{
+ <span style=color:#f92672>&#34;sample&#34;</span>:{
+ <span style=color:#f92672>&#34;text1&#34;</span>: <span style=color:#e6db74>&#34;テキスト1&#34;</span>,
+ <span style=color:#f92672>&#34;text2&#34;</span>:<span style=color:#e6db74>&#34;テキスト2&#34;</span>
+ }
+}
+</code></pre></div><p>次は英語ファイル</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:public/locales/en/translation.json data-lang=json:public/locales/en/translation.json>{
+ <span style=color:#f92672>&#34;sample&#34;</span>:{
+ <span style=color:#f92672>&#34;text1&#34;</span>: <span style=color:#e6db74>&#34;text1&#34;</span>,
+ <span style=color:#f92672>&#34;text2&#34;</span>:<span style=color:#e6db74>&#34;text2&#34;</span>
+ }
+}
+</code></pre></div><h2 id=設定ファイルi18njsの作成>設定ファイル(i18n.js)の作成</h2>
+<p>プロジェクトのsrcフォルダ内にi18n.jsを作成します。</p>
+<p>設定を記述していきます。</p>
+<p>基本的に公式のものを丸パクリです。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>i18n</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>Backend</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next-http-backend&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>LanguageDetector</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next-browser-languagedetector&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>initReactI18next</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-i18next&#39;</span>;
+
+<span style=color:#a6e22e>i18n</span>
+ .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>Backend</span>)
+ .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>LanguageDetector</span>)
+ .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>initReactI18next</span>)
+ .<span style=color:#a6e22e>init</span>({
+ <span style=color:#a6e22e>fallbackLng</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;en&#39;</span>,
+ <span style=color:#a6e22e>debug</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+
+ <span style=color:#a6e22e>interpolation</span><span style=color:#f92672>:</span> {
+ <span style=color:#a6e22e>escapeValue</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>, <span style=color:#75715e>// not needed for react as it escapes by default
+</span><span style=color:#75715e></span> },
+ });
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>i18n</span>;
+<span style=color:#a6e22e>設定ファイルをindex</span>.<span style=color:#a6e22e>js内でインポートします</span><span style=color:#960050;background-color:#1e0010>。</span>
+
+
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>ReactDOM</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-dom&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./index.css&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>App</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./App&#39;</span>;
+<span style=color:#75715e>// i18n
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./i18n&#39;</span>;
+
+<span style=color:#a6e22e>ReactDOM</span>.<span style=color:#a6e22e>render</span>(
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>React</span>.<span style=color:#a6e22e>StrictMode</span><span style=color:#f92672>&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>App</span> <span style=color:#f92672>/&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/React.StrictMode&gt;,</span>
+ document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;root&#39;</span>)
+);
+</code></pre></div><h2 id=言語切替の実装>言語切替の実装</h2>
+<p>hooksで書けるので楽に使えます。</p>
+<p>App.jsを編集していきます。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>logo</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./logo.svg&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./App.css&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>useTranslation</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-i18next&#39;</span>;
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>App</span> <span style=color:#f92672>=</span> () =&gt; {
+ <span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>t</span>, <span style=color:#a6e22e>i18n</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>useTranslation</span>();
+
+ <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>changeLanguage</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>lang</span>) =&gt; {
+ <span style=color:#a6e22e>i18n</span>.<span style=color:#a6e22e>changeLanguage</span>(<span style=color:#a6e22e>lang</span>);
+ }
+
+ <span style=color:#66d9ef>return</span> (
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App&#34;</span><span style=color:#f92672>&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>header</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App-header&#34;</span><span style=color:#f92672>&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>logo</span>} <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App-logo&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo&#34;</span> <span style=color:#f92672>/&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>p</span><span style=color:#f92672>&gt;</span>
+ {<span style=color:#a6e22e>t</span>(<span style=color:#e6db74>&#39;sample.text1&#39;</span>)}
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/p&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>p</span><span style=color:#f92672>&gt;</span>
+ {<span style=color:#a6e22e>t</span>(<span style=color:#e6db74>&#39;sample.text2&#39;</span>)}
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/p&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span><span style=color:#f92672>&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>button</span> <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() =&gt; <span style=color:#a6e22e>changeLanguage</span>(<span style=color:#e6db74>&#39;en&#39;</span>)}<span style=color:#f92672>&gt;</span>
+ <span style=color:#a6e22e>English</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/button&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>button</span> <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() =&gt; <span style=color:#a6e22e>changeLanguage</span>(<span style=color:#e6db74>&#39;ja&#39;</span>)}<span style=color:#f92672>&gt;</span>
+ <span style=color:#a6e22e>日本語</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/button&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/header&gt;</span>
+ <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
+ );
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>App</span>;
+</code></pre></div><p><code>t('sample.text1')</code>のようにすると囲んだ部分が翻訳されます。</p>
+<p><code>i18n.changeLanguage('ja');</code>
+のように言語切替できるようになります。</p>
+<h2 id=まとめ>まとめ</h2>
+<p>SSRをする場合やクラスコンポーネントを使いたい場合などは公式のドキュメントにきちんと書いてあるので読んでみてください。</p>
+<p>思ったより簡単に実装できて良かったです。</p>
+</div>
+</article>
+<div class=mt-2>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class=twitter-share-button data-show-count=false data-lang=en>Tweet</a>
+<script async src=https://platform.twitter.com/widgets.js></script>
+</div>
+<div class="border-t flex-grow border-gray-400 mt-6"></div>
+<div class="flex-col md:flex md:flex-row md:justify-between my-8">
+<a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/go-to-hellowork/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>
+ハローワーク行きました
+</a>
+<a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/wsl2-windows-terminal/>
+WindowsTerminalとWSL2を使う<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg>
+</a>
+</div>
+</main>
+<footer class="container mx-auto md:px-52 px-8 mt-auto">
+<p class="py-2 text-gray-600">&copy; 2022 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p>
+</footer>
+<script src=https://takashitkg.github.io/blog/js/single-header.js></script>
+</body>
+</html>

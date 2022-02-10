@@ -1,0 +1,127 @@
+<!doctype html><html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<title>WindowsTerminalとWSL2を使う</title>
+<meta name=description content="takashi blog">
+<meta name=author content="takashi">
+<link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png>
+<meta property="og:type" content="blog">
+<meta property="og:title" content="WindowsTerminalとWSL2を使う">
+<meta property="og:site_name" content="takashi Blog">
+<meta property="og:url" content="https://takashitkg.github.io/blog/posts/wsl2-windows-terminal/">
+<meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:WindowsTerminalとWSL2を使う,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png">
+<link href="/css/main.min.5e615d6a4c5a4fc7332ec50e55b254eeb390475ffe6322e417a64e32c7ce8efd.css" rel=stylesheet>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8MXV1Y9Q34')</script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+<header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full">
+<div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div>
+<div id=navcontent class="container mx-auto md:px-52 py-3 px-8">
+<a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">
+takashi Blog
+</a>
+<nav>
+<ul class="flex justify-start">
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a>
+</li>
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container mx-auto md:px-52 px-8 pt-28">
+<article>
+<h1 class="text-3xl mb-1">WindowsTerminalとWSL2を使う</h1>
+<time class=text-gray-600 datetime=2020-11-25T05:35:07>2020.11.25 05:35</time>
+<div class="mt-4 prose">
+<p>こんにちは、たかしです。</p>
+<p>ブログに書くネタがないので開発環境のことでも書こうと思います。</p>
+<p>少し前は開発環境にUbuntuを使っていたのですが、WSL2が出てからはWindowsで開発しています。</p>
+<h2 id=wsl2とは>WSL2とは</h2>
+<p>まずWSL2とは何なのかですが、下のリンクに書いてます。</p>
+<p><a href=https://docs.microsoft.com/ja-jp/windows/wsl/about target=_blank>Linux 用 Windows サブシステムとは</a></p>
+<p>要はWindowsを使いながらLinuxを使えるというやつで、とても便利です。</p>
+<p>WSLのときはシステムコールを完全にはサポートしていなかったのですが、WSL2で完全互換となりました。</p>
+<p>導入は公式を見てやってみてください。</p>
+<p><a href=https://docs.microsoft.com/ja-jp/windows/wsl/install-win10 target=_blank>https://docs.microsoft.com/ja-jp/windows/wsl/install-win10</a></p>
+<h2 id=windowsterminalとは>WindowsTerminalとは</h2>
+<p>Windowsでかっこいいターミナルを便利に使えるやつです。</p>
+<p>cmdもPowerShellもWSLも開けます。複数タブできます。</p>
+<p>とっても便利です。</p>
+<p>MicrosoftStoreからダウンロードできます。</p>
+<p><a href="https://www.microsoft.com/ja-jp/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab" target=_blank>WindowsTerminal</a></p>
+<h2 id=windowsterminalの設定>WindowsTerminalの設定</h2>
+<p>WindowsTerminalの設定をクリックするとsettings.jsonを開けます。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+ <span style=color:#f92672>&#34;$schema&#34;</span>: <span style=color:#e6db74>&#34;https://aka.ms/terminal-profiles-schema&#34;</span>,
+
+ <span style=color:#f92672>&#34;defaultProfile&#34;</span>: <span style=color:#e6db74>&#34;{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}&#34;</span>,
+
+ <span style=color:#f92672>&#34;profiles&#34;</span>:
+ {
+ <span style=color:#f92672>&#34;defaults&#34;</span>:
+ {
+ <span style=color:#75715e>// Put settings here that you want to apply to all profiles
+</span><span style=color:#75715e></span> },
+ <span style=color:#f92672>&#34;list&#34;</span>:
+ [
+ {
+ <span style=color:#75715e>// Make changes here to the powershell.exe profile
+</span><span style=color:#75715e></span> <span style=color:#f92672>&#34;guid&#34;</span>: <span style=color:#e6db74>&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span>,
+ <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Windows PowerShell&#34;</span>,
+ <span style=color:#f92672>&#34;commandline&#34;</span>: <span style=color:#e6db74>&#34;powershell.exe&#34;</span>,
+ <span style=color:#f92672>&#34;hidden&#34;</span>: <span style=color:#66d9ef>false</span>
+ },
+ {
+ <span style=color:#75715e>// Make changes here to the cmd.exe profile
+</span><span style=color:#75715e></span> <span style=color:#f92672>&#34;guid&#34;</span>: <span style=color:#e6db74>&#34;{0caa0dad-35be-5f56-a8ff-afceeeaa6101}&#34;</span>,
+ <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;cmd&#34;</span>,
+ <span style=color:#f92672>&#34;commandline&#34;</span>: <span style=color:#e6db74>&#34;cmd.exe&#34;</span>,
+ <span style=color:#f92672>&#34;hidden&#34;</span>: <span style=color:#66d9ef>false</span>
+ },
+ {
+ <span style=color:#f92672>&#34;guid&#34;</span>: <span style=color:#e6db74>&#34;{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}&#34;</span>,
+ <span style=color:#f92672>&#34;commandline&#34;</span> : <span style=color:#e6db74>&#34;wsl.exe ~ -d Ubuntu-18.04&#34;</span>
+ },
+ {
+ <span style=color:#f92672>&#34;guid&#34;</span>: <span style=color:#e6db74>&#34;{b453ae62-4e3d-5e58-b989-0a998ec441b8}&#34;</span>,
+ <span style=color:#f92672>&#34;hidden&#34;</span>: <span style=color:#66d9ef>false</span>,
+ <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Azure Cloud Shell&#34;</span>,
+ <span style=color:#f92672>&#34;source&#34;</span>: <span style=color:#e6db74>&#34;Windows.Terminal.Azure&#34;</span>
+ }
+ ]
+ },
+
+ <span style=color:#75715e>// 以下略
+</span><span style=color:#75715e></span>}
+</code></pre></div><p><code>"commandline" : "wsl.exe ~ -d Ubuntu-18.04"</code>がポイントです。</p>
+<p>こうすればデフォルトでUbuntuのホームディレクトリが開きます。</p>
+</div>
+</article>
+<div class=mt-2>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class=twitter-share-button data-show-count=false data-lang=en>Tweet</a>
+<script async src=https://platform.twitter.com/widgets.js></script>
+</div>
+<div class="border-t flex-grow border-gray-400 mt-6"></div>
+<div class="flex-col md:flex md:flex-row md:justify-between my-8">
+<a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/react-i18n-sample/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>
+Reactで多言語対応する
+</a>
+<a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/akeome/>
+2020年を振り返る<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg>
+</a>
+</div>
+</main>
+<footer class="container mx-auto md:px-52 px-8 mt-auto">
+<p class="py-2 text-gray-600">&copy; 2022 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p>
+</footer>
+<script src=https://takashitkg.github.io/blog/js/single-header.js></script>
+</body>
+</html>
