@@ -1,0 +1,144 @@
+<!doctype html><html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<title>Adventarの埋め込みをHugoでやる</title>
+<meta name=description content="takashi blog">
+<meta name=author content="takashi">
+<link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png>
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Adventarの埋め込みをHugoでやる">
+<meta property="og:site_name" content="takashi Blog">
+<meta property="og:url" content="https://takashitkg.github.io/blog/posts/shortcode-adventar/">
+<meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:Adventarの埋め込みをHugoでやる,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png">
+<link href="https://takashitkg.github.io/blog/css/main.min.5e615d6a4c5a4fc7332ec50e55b254eeb390475ffe6322e417a64e32c7ce8efd.css" rel=stylesheet>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8MXV1Y9Q34')</script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+<header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full">
+<div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div>
+<div id=navcontent class="container mx-auto md:px-52 py-3 px-8">
+<a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">
+takashi Blog
+</a>
+<nav>
+<ul class="flex justify-start">
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a>
+</li>
+<li class="px-auto mr-4">
+<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container mx-auto md:px-52 px-8 pt-28">
+<article class=w-full>
+<h1 class="text-3xl mb-1">Adventarの埋め込みをHugoでやる</h1>
+<time class=text-gray-600 datetime=2023-12-02T15:43:08>2023.12.02 15:43</time>
+<div class="mt-4 prose max-w-none">
+<p>こんにちは、たかしです。<br>
+早くも2023年も12月となりました。<br>
+年を取る度に月日の流れが加速している気がします。</p>
+<p>さて、12月と言えばアドベントカレンダーですね！<br>
+毎年たくさんの方がアドベントカレンダー企画に参加して記事を書いていると思います。<br>
+アドベントカレンダー企画でよく使われているサービスとしてはAdventarが挙げられると思います。<br>
+<div class="p-4 max-w-sm rounded-sm bg-white hover:bg-gray-100">
+<a style=text-decoration:none!important href=https://adventar.org/ target=_blank rel="noopener noreferrer">
+<div class="font-mono text-xl font-bold">Adventar</div>
+<div class="font-mono text-lg font-medium break-words">https://adventar.org/</div>
+</a>
+</div></p>
+<p>シンプルで使いやすいサービスですよね。</p>
+<h2 id=hugoで埋め込みたい>Hugoで埋め込みたい</h2>
+<p>アドベントカレンダー企画の記事を投稿する場合、Adventarのカレンダーを記事内に埋め込むと参加している企画を手軽に紹介出来ていい感じですよね。<br>
+noteでは埋め込みに対応していて、URLを入力するとカレンダーの埋め込みができるようです。<br>
+しかし、Hugoでビルドしているこのブログには当然そんな機能はありません。<br>
+というわけで、Hugoの機能であるShortcodesを使用して簡単に埋め込めるようにしていきます。
+<div class="p-4 max-w-sm rounded-sm bg-white hover:bg-gray-100">
+<a style=text-decoration:none!important href=https://gohugo.io/content-management/shortcodes/ target=_blank rel="noopener noreferrer">
+<div class="font-mono text-xl font-bold">Shotcodes|Hugo</div>
+<div class="font-mono text-lg font-medium break-words">https://gohugo.io/content-management/shortcodes/</div>
+</a>
+</div></p>
+<h2 id=shortcodesって何>Shortcodesって何？</h2>
+<p>Shortcodesはmarkdownファイルの中で使用できるスニペットのようなもので、Hugoで用意されています。<br>
+自分でも作れます。<br>
+例えば以下のようにmarkdownファイル内に書くと</p>
+<pre tabindex=0><code>{{&lt; figure src=&quot;elephant.jpg&quot; title=&quot;An elephant at sunset&quot; &gt;}}
+</code></pre><p>以下のHTMLが生成されます。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-HTML data-lang=HTML>&lt;<span style=color:#f92672>figure</span>&gt;
+  &lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;elephant.jpg&#34;</span>&gt;
+  &lt;<span style=color:#f92672>figcaption</span>&gt;&lt;<span style=color:#f92672>h4</span>&gt;An elephant at sunset&lt;/<span style=color:#f92672>h4</span>&gt;&lt;/<span style=color:#f92672>figcaption</span>&gt;
+&lt;/<span style=color:#f92672>figure</span>&gt;
+</code></pre></div><h2 id=shortcodesを作る>Shortcodesを作る</h2>
+<p>ドキュメントにShortcodesの自作方法が書いてあります。</p>
+<div class="p-4 max-w-sm rounded-sm bg-white hover:bg-gray-100">
+<a style=text-decoration:none!important href=https://gohugo.io/templates/shortcode-templates/ target=_blank rel="noopener noreferrer">
+<div class="font-mono text-xl font-bold">Create your own shortcodes|Hugo</div>
+<div class="font-mono text-lg font-medium break-words">https://gohugo.io/templates/shortcode-templates/</div>
+</a>
+</div>
+<p>ShortCodesは<code>layouts/shortcodes</code> ディレクトリに作成します。<br>
+とりあえずファイルを作ってみましょう。
+今回は<code>layouts/shortcodes/adventar.html</code>というファイルを作成します。<br>
+内容はとりあえず<code>id</code>を受け取って表示する簡単な内容にします。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html:layouts/shortcodes/adventart.html data-lang=html:layouts/shortcodes/adventart.html>&lt;<span style=color:#f92672>div</span>&gt;
+    {{ if .Get &#34;id&#34; }}
+        {{ .Get &#34;id&#34; }}
+    {{ end }}
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>こうするとmarkdownファイル内で</p>
+<pre tabindex=0><code>{{&lt; adventar id=&quot;123456&quot; &gt;}}
+</code></pre><p>のようにShortcodesを呼び出すことができます!<br>
+とても手軽ですね。</p>
+<h2 id=iframeで埋め込む>iframeで埋め込む</h2>
+<p>以下のはてなブログの記事でiframeで埋め込む方法が解説されています。<br>
+はてなブログに埋め込む用で解説されていますが、今回はこれを参考にさせていただきます。</p>
+<div class="p-4 max-w-sm rounded-sm bg-white hover:bg-gray-100">
+<a style=text-decoration:none!important href=https://kivantium.hateblo.jp/entry/2021/12/18/034810 target=_blank rel="noopener noreferrer">
+<div class="font-mono text-xl font-bold">はてなブログにAdventarのAdvent Calendarを埋め込む</div>
+<div class="font-mono text-lg font-medium break-words">https://kivantium.hateblo.jp/entry/2021/12/18/034810</div>
+</a>
+</div>
+<p>先ほどのadventart.htmlを以下のように編集します。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html:layouts/shortcodes/adventart.html data-lang=html:layouts/shortcodes/adventart.html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-align: center&#34;</span>&gt;
+    {{ if .Get &#34;id&#34; }}
+    &lt;<span style=color:#f92672>iframe</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;https://adventar.org/calendars/{{ .Get &#34;id&#34; }}/embed&#39;</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;620&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;362&#34;</span> <span style=color:#a6e22e>frameborder</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;0&#34;</span> <span style=color:#a6e22e>loading</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lazy&#34;</span>&gt;&lt;/<span style=color:#f92672>iframe</span>&gt;
+    {{ end }}
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>例として、僕が参加するアドベントカレンダーを埋め込む場合は以下のように書きます。</p>
+<pre tabindex=0><code>// https://adventar.org/calendars/8596 の場合
+{{&lt; adventar id=&quot;8596&quot; &gt;}}
+</code></pre><p>こうするとカレンダーが表示されます。
+<div style=text-align:center>
+<iframe src=https://adventar.org/calendars/8596/embed width=620 height=362 frameborder=0 loading=lazy></iframe>
+</div></p>
+<h2 id=まとめ>まとめ</h2>
+<p>今回はHugoで簡単なShortcodesの作り方を解説しました。<br>
+自分でも手軽に作れるのは非常に便利ですよね！<br>
+Hugoの個人的なお気に入りポイントです。</p>
+<p>ちなみに、これはアドベントカレンダーの記事ではありません。<br>
+僕は12月23日にみすてむずのアドベントカレンダーに投稿する予定なので、読んでくださるとうれしいです。<br>
+ちなみに、何を書くかはまだ決まっていません。<br>
+頑張るぞい</p>
+</div>
+</article>
+<div class="border-t flex-grow border-gray-400 mt-6"></div>
+<div class="flex-col md:flex md:flex-row md:justify-between my-8">
+<a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/build-future-posts/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>
+Hugoで予約投稿をする
+</a>
+</div>
+</main>
+<footer class="container mx-auto md:px-52 px-8 mt-auto">
+<p class="py-2 text-gray-600">&copy; 2023 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p>
+</footer>
+<script src=https://takashitkg.github.io/blog/js/single-header.js></script>
+<script src=https://takashitkg.github.io/blog/js/code-title.js></script>
+</body>
+</html>
