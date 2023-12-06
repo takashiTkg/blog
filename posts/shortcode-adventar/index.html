@@ -115,9 +115,10 @@ noteでは埋め込みに対応していて、URLを入力するとカレンダ�
 <pre tabindex=0><code>// https://adventar.org/calendars/8596 の場合
 {{&lt; adventar id=&quot;8596&quot; &gt;}}
 </code></pre><p>こうするとカレンダーが表示されます。
-<div style=text-align:center>
-<iframe src=https://adventar.org/calendars/8596/embed width=620 height=362 frameborder=0 loading=lazy></iframe>
-</div></p>
+<div class="text-center max-w-full">
+<iframe src=https://adventar.org/calendars/8596/embed height=362 frameborder=0 loading=lazy class=w-full></iframe>
+</div>
+</p>
 <h2 id=まとめ>まとめ</h2>
 <p>今回はHugoで簡単なShortcodesの作り方を解説しました。<br>
 自分でも手軽に作れるのは非常に便利ですよね！<br>
@@ -132,6 +133,9 @@ Hugoの個人的なお気に入りポイントです。</p>
 <div class="flex-col md:flex md:flex-row md:justify-between my-8">
 <a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/build-future-posts/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>
 Hugoで予約投稿をする
+</a>
+<a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/20231206/>
+20231206 日記<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg>
 </a>
 </div>
 </main>
