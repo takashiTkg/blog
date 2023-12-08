@@ -1,88 +1,15 @@
-<!doctype html><html lang=ja>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<title>Hugoで予約投稿をする</title>
-<meta name=description content="takashi blog">
-<meta name=author content="takashi">
-<link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico>
-<link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png>
-<meta property="og:type" content="blog">
-<meta property="og:title" content="Hugoで予約投稿をする">
-<meta property="og:site_name" content="takashi Blog">
-<meta property="og:url" content="https://takashitkg.github.io/blog/posts/build-future-posts/">
-<meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:Hugoで予約投稿をする,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png">
-<link href="https://takashitkg.github.io/blog/css/main.min.5e615d6a4c5a4fc7332ec50e55b254eeb390475ffe6322e417a64e32c7ce8efd.css" rel=stylesheet>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8MXV1Y9Q34')</script>
-</head>
-<body class="flex flex-col min-h-screen bg-gray-100">
-<header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full">
-<div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div>
-<div id=navcontent class="container mx-auto md:px-52 py-3 px-8">
-<a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">
-takashi Blog
-</a>
-<nav>
-<ul class="flex justify-start">
-<li class="px-auto mr-4">
-<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a>
-</li>
-<li class="px-auto mr-4">
-<a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a>
-</li>
-</ul>
-</nav>
-</div>
-</header>
-<main class="container mx-auto md:px-52 px-8 pt-28">
-<article class=w-full>
-<h1 class="text-3xl mb-1">Hugoで予約投稿をする</h1>
-<time class=text-gray-600 datetime=2023-11-03T12:51:13>2023.11.03 12:51</time>
-<div class="mt-4 prose max-w-none">
-<p>こんにちは<br>
-気が付けば2023年も終わりに近づいていてビックリしています。<br>
-年末といえばアドベントカレンダーですよね。<br>
-AdventerなどのサービスでURLを登録しておくと指定した日時になるとURLを公開してくれます。<br>
-しかしこれはAdventer上の話であって、登録したブログの記事などに予約投稿機能が無いと指定した期日までの間にも記事が見えてしまいます。<br>
-ブログサービスには予約投稿機能のあるものがほとんどだと思いますが、このブログはHugoを使っているのでそんなものは無いです。<br>
-ただ、調べてみると簡単な方法で簡易的な予約投稿機能を実現できそうです。</p>
-<h2 id=定期的にビルドするアプローチ>定期的にビルドするアプローチ</h2>
-<p>Hugoの仕様として</p>
-<ul>
-<li>buildFuture = false</li>
-<li>Front matterのdateが未来</li>
-</ul>
-<p>だとビルドをしないようです。<br>
-なので、ビルドを定期的に実行することでその時点でのdateが過去になったらビルドされる = 公開される<br>
-ということになります。</p>
-<h3 id=front-matterの設定>front matterの設定</h3>
-<p>予約投稿したい記事のFront matterを以下のようにします。<br>
-dateは未来の日付にします。<br>
-draftはfalseにしないと未来になっても下書きのままになってしまうので、trueにしておきます。</p>
-<pre tabindex=0><code>---
-title: &quot;Future Test Post&quot;
+<!doctype html><html lang=ja><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Hugoで予約投稿をする</title>
+<meta name=description content="takashi blog"><meta name=author content="takashi"><link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico><link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png><meta property="og:type" content="blog"><meta property="og:title" content="Hugoで予約投稿をする"><meta property="og:site_name" content="takashi Blog"><meta property="og:url" content="https://takashitkg.github.io/blog/posts/build-future-posts/"><meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:Hugoで予約投稿をする,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png"><link href="https://takashitkg.github.io/blog/css/main.min.c8942c19a542b0e57e4204318aa6293b98921c79891db7d57d09fe32be50d8cc.css" rel=stylesheet><script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8MXV1Y9Q34")</script></head><body class="flex flex-col min-h-screen bg-gray-100"><header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full"><div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div><div id=navcontent class="container mx-auto md:px-52 py-3 px-8"><a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">takashi Blog</a><nav><ul class="flex justify-start"><li class="px-auto mr-4"><a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a></li><li class="px-auto mr-4"><a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a></li></ul></nav></div></header><main class="container mx-auto md:px-52 px-8 pt-28"><article class=w-full><h1 class="text-3xl mb-1">Hugoで予約投稿をする</h1><time class=text-gray-600 datetime=2023-11-03T12:51:13>2023.11.03 12:51</time><div class="mt-4 prose prose-headings:mt-1 prose-headings:mb-2 max-w-none"><p>こんにちは<br>気が付けば2023年も終わりに近づいていてビックリしています。<br>年末といえばアドベントカレンダーですよね。<br>AdventerなどのサービスでURLを登録しておくと指定した日時になるとURLを公開してくれます。<br>しかしこれはAdventer上の話であって、登録したブログの記事などに予約投稿機能が無いと指定した期日までの間にも記事が見えてしまいます。<br>ブログサービスには予約投稿機能のあるものがほとんどだと思いますが、このブログはHugoを使っているのでそんなものは無いです。<br>ただ、調べてみると簡単な方法で簡易的な予約投稿機能を実現できそうです。</p><h2 id=定期的にビルドするアプローチ>定期的にビルドするアプローチ</h2><p>Hugoの仕様として</p><ul><li>buildFuture = false</li><li>Front matterのdateが未来</li></ul><p>だとビルドをしないようです。<br>なので、ビルドを定期的に実行することでその時点でのdateが過去になったらビルドされる = 公開される<br>ということになります。</p><h3 id=front-matterの設定>front matterの設定</h3><p>予約投稿したい記事のFront matterを以下のようにします。<br>dateは未来の日付にします。<br>draftはfalseにしないと未来になっても下書きのままになってしまうので、trueにしておきます。</p><pre tabindex=0><code>---
+title: &#34;Future Test Post&#34;
 date: 2023-11-05T00:00:00+09:00 
 draft: false
 ---
-</code></pre><p>未来の日付の記事を開発環境で確認したい場合は</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>hugo server --buildFuture
-</code></pre></div><p>で確認することができます。</p>
-<h3 id=configtomlの設定>config.tomlの設定</h3>
-<p>config.tomlに</p>
-<pre tabindex=0><code>buildFuture = false
-</code></pre><p>を追加します。(デフォルトでfalseなのでいらない気もしますが、一応明示しておきます)</p>
-<h3 id=github-actionsの設定>Github Actionsの設定</h3>
-<p>ビルドを定期的に実行するようにします。<br>
-僕の場合はGithubActionsでビルドタスクを走らせているので、GithubActionsでやります。<br>
-このブログの場合はこんな感じです。<br>
-毎日0時に実行したいのでタイムゾーンの関係で9時間引いて15時に指定しています。<br>
-(JSTをUTCにしています)</p>
-<pre tabindex=0><code>name: build-everyday
+</code></pre><p>未来の日付の記事を開発環境で確認したい場合は</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>hugo server --buildFuture
+</span></span></code></pre></div><p>で確認することができます。</p><h3 id=configtomlの設定>config.tomlの設定</h3><p>config.tomlに</p><pre tabindex=0><code>buildFuture = false
+</code></pre><p>を追加します。(デフォルトでfalseなのでいらない気もしますが、一応明示しておきます)</p><h3 id=github-actionsの設定>Github Actionsの設定</h3><p>ビルドを定期的に実行するようにします。<br>僕の場合はGithubActionsでビルドタスクを走らせているので、GithubActionsでやります。<br>このブログの場合はこんな感じです。<br>毎日0時に実行したいのでタイムゾーンの関係で9時間引いて15時に指定しています。<br>(JSTをUTCにしています)</p><pre tabindex=0><code>name: build-everyday
 on:
     schedule:
-        - cron: '0 15 * * *'
+        - cron: &#39;0 15 * * *&#39;
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -95,19 +22,19 @@ jobs:
           - name: Setup Hugo
             uses: peaceiris/actions-hugo@v2
             with:
-              hugo-version: '0.89.2'
+              hugo-version: &#39;0.89.2&#39;
               extended: true
 
           - name: Setup Node
             uses: actions/setup-node@v2
             with:
-              node-version: '14'
+              node-version: &#39;14&#39;
 
           - name: Cache dependencies
             uses: actions/cache@v2
             with:
               path: ~/.npm
-              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+              key: ${{ runner.os }}-node-${{ hashFiles(&#39;**/package-lock.json&#39;) }}
               restore-keys: |
                 ${{ runner.os }}-node-
 
@@ -122,37 +49,10 @@ jobs:
             env:
               API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
             with:
-              source-directory: 'public'
-              destination-github-username: 'takashiTkg'
-              destination-repository-name: 'blog'
+              source-directory: &#39;public&#39;
+              destination-github-username: &#39;takashiTkg&#39;
+              destination-repository-name: &#39;blog&#39;
               user-email: takashi.develop@gmail.com
               target-branch: main
-</code></pre><p>これでビルドが毎日0時に実行されて指定した日時になると記事が予約投稿されるはずです。</p>
-<h2 id=まとめ>まとめ</h2>
-<ul>
-<li>dateを未来にする</li>
-<li>draft:false</li>
-<li>buildFuture = falseを設定</li>
-<li>定期的にビルド</li>
-</ul>
-<p>をすることで簡易的な予約投稿機能を実装することができました。<br>
-Hugoは機能が豊富かつビルドも速く、テーマも豊富なのでおすすめです。</p>
-</div>
-</article>
-<div class="border-t flex-grow border-gray-400 mt-6"></div>
-<div class="flex-col md:flex md:flex-row md:justify-between my-8">
-<a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/20230705/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>
-20230705 日記
-</a>
-<a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/shortcode-adventar/>
-Adventarの埋め込みをHugoでやる<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg>
-</a>
-</div>
-</main>
-<footer class="container mx-auto md:px-52 px-8 mt-auto">
-<p class="py-2 text-gray-600">&copy; 2023 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p>
-</footer>
-<script src=https://takashitkg.github.io/blog/js/single-header.js></script>
-<script src=https://takashitkg.github.io/blog/js/code-title.js></script>
-</body>
-</html>
+</code></pre><p>これでビルドが毎日0時に実行されて指定した日時になると記事が予約投稿されるはずです。</p><h2 id=まとめ>まとめ</h2><ul><li>dateを未来にする</li><li>draft:false</li><li>buildFuture = falseを設定</li><li>定期的にビルド</li></ul><p>をすることで簡易的な予約投稿機能を実装することができました。<br>Hugoは機能が豊富かつビルドも速く、テーマも豊富なのでおすすめです。</p></div></article><div class="border-t flex-grow border-gray-400 mt-6"></div><div class="flex-col md:flex md:flex-row md:justify-between my-8"><a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/20230705/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>20230705 日記
+</a><a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/shortcode-adventar/>Adventarの埋め込みをHugoでやる<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg></a></div></main><footer class="container mx-auto md:px-52 px-8 mt-auto"><p class="py-2 text-gray-600">&copy; 2023 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p></footer><script src=https://takashitkg.github.io/blog/js/single-header.js></script><script src=https://takashitkg.github.io/blog/js/code-title.js></script></body></html>
