@@ -1,85 +1,118 @@
-<!doctype html><html lang=ja><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Reactで多言語対応する</title>
-<meta name=description content="takashi blog"><meta name=author content="takashi"><link rel=icon sizes=16x16 href=https://takashitkg.github.io/blog/favicon.ico><link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png><meta property="og:type" content="blog"><meta property="og:title" content="Reactで多言語対応する"><meta property="og:site_name" content="takashi Blog"><meta property="og:url" content="https://takashitkg.github.io/blog/posts/react-i18n-sample/"><meta property="og:image" content="https://res.cloudinary.com/dhsgdhfhj/image/upload/l_text:Sawarabi%20Gothic_50_bold:Reactで多言語対応する,co_rgb:333,w_500,c_fit/v1608554990/ogp/white-background_hcfukg.png"><link href="https://takashitkg.github.io/blog/css/main.min.c8942c19a542b0e57e4204318aa6293b98921c79891db7d57d09fe32be50d8cc.css" rel=stylesheet><script async src="https://www.googletagmanager.com/gtag/js?id=G-8MXV1Y9Q34"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8MXV1Y9Q34")</script></head><body class="flex flex-col min-h-screen bg-gray-100"><header id=header class="fixed z-10 top-0 bg-gray-100 shdow w-full"><div id=progress class="h-1 z-20 top-0" style="background:linear-gradient(to right,#6b6d6a var(--scroll),transparent 0)"></div><div id=navcontent class="container mx-auto md:px-52 py-3 px-8"><a href=https://takashitkg.github.io/blog/ class="font-bold font-mono text-3xl">takashi Blog</a><nav><ul class="flex justify-start"><li class="px-auto mr-4"><a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/>top</a></li><li class="px-auto mr-4"><a class="font-thin text-lg border-transparent border-b-2 hover:border-gray-500" href=https://takashitkg.github.io/blog/about/>about</a></li></ul></nav></div></header><main class="container mx-auto md:px-52 px-8 pt-28"><article class=w-full><h1 class="text-3xl mb-1">Reactで多言語対応する</h1><time class=text-gray-600 datetime=2020-11-07T05:35:07>2020.11.07 05:35</time><div class="mt-4 prose prose-headings:mt-1 prose-headings:mb-2 max-w-none"><p>こんにちは、たかしです。</p><p>Reactで多言語対応をする機会があったので、方法についてまとめます。</p><p><a href=https://react.i18next.com/ target=_blank>react-i18next</a> を使います。</p><p>create-react-appで作ったプロジェクトをいじっていきます。</p><p>また、今回書いたコードはgithubに上げてます。</p><p><a href=https://github.com/takashiTkg/i18n-sample target=_blank>takashiTkg/i18n-sample</a></p><h2 id=準備>準備</h2><p>とりあえずcreate-react-appします。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>npx create-react-app i18n-sample
-</span></span></code></pre></div><p>今回使うreact-i18nextと必要なライブラリを追加します。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>yarn add react-i18next i18next i18next-browser-languagedetector i18next-http-backend
-</span></span></code></pre></div><h2 id=言語ファイルの作成>言語ファイルの作成</h2><p>プロジェクトのpublicフォルダ内に言語ファイルを配置していきます。</p><p>日本語ファイルから</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:public/locales/ja/translation.json data-lang=json:public/locales/ja/translation.json><span style=display:flex><span>{
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;sample&#34;</span>:{
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text1&#34;</span>: <span style=color:#e6db74>&#34;テキスト1&#34;</span>,
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text2&#34;</span>:<span style=color:#e6db74>&#34;テキスト2&#34;</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>次は英語ファイル</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json:public/locales/en/translation.json data-lang=json:public/locales/en/translation.json><span style=display:flex><span>{
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;sample&#34;</span>:{
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text1&#34;</span>: <span style=color:#e6db74>&#34;text1&#34;</span>,
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text2&#34;</span>:<span style=color:#e6db74>&#34;text2&#34;</span>
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=設定ファイルi18njsの作成>設定ファイル(i18n.js)の作成</h2><p>プロジェクトのsrcフォルダ内にi18n.jsを作成します。</p><p>設定を記述していきます。</p><p>基本的に公式のものを丸パクリです。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>i18n</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>Backend</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next-http-backend&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>LanguageDetector</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;i18next-browser-languagedetector&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>initReactI18next</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-i18next&#39;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>i18n</span>
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>Backend</span>)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>LanguageDetector</span>)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>initReactI18next</span>)
-</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>init</span>({
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fallbackLng</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;en&#39;</span>,
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>debug</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>interpolation</span><span style=color:#f92672>:</span> {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>escapeValue</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>, <span style=color:#75715e>// not needed for react as it escapes by default
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    },
-</span></span><span style=display:flex><span>  });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>i18n</span>;
-</span></span></code></pre></div><p>設定ファイルをindex.js内でインポートします。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript:index.js data-lang=javascript:index.js><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>ReactDOM</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-dom&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./index.css&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>App</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./App&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>// i18n
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./i18n&#39;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>ReactDOM</span>.<span style=color:#a6e22e>render</span>(
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>React</span>.<span style=color:#a6e22e>StrictMode</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>App</span> <span style=color:#f92672>/&gt;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/React.StrictMode&gt;,</span>
-</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;root&#39;</span>)
-</span></span><span style=display:flex><span>);
-</span></span></code></pre></div><h2 id=言語切替の実装>言語切替の実装</h2><p>hooksで書けるので楽に使えます。</p><p>App.jsを編集していきます。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>logo</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./logo.svg&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./App.css&#39;</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>useTranslation</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;react-i18next&#39;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>App</span> <span style=color:#f92672>=</span> () =&gt; {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>t</span>, <span style=color:#a6e22e>i18n</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>useTranslation</span>();
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>changeLanguage</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>lang</span>) =&gt; {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>i18n</span>.<span style=color:#a6e22e>changeLanguage</span>(<span style=color:#a6e22e>lang</span>);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App&#34;</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>header</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App-header&#34;</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>logo</span>} <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;App-logo&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logo&#34;</span> <span style=color:#f92672>/&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>p</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>          {<span style=color:#a6e22e>t</span>(<span style=color:#e6db74>&#39;sample.text1&#39;</span>)}
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/p&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>p</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>          {<span style=color:#a6e22e>t</span>(<span style=color:#e6db74>&#39;sample.text2&#39;</span>)}
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/p&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span><span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>button</span> <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() =&gt; <span style=color:#a6e22e>changeLanguage</span>(<span style=color:#e6db74>&#39;en&#39;</span>)}<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>          <span style=color:#a6e22e>English</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/button&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>button</span> <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() =&gt; <span style=color:#a6e22e>changeLanguage</span>(<span style=color:#e6db74>&#39;ja&#39;</span>)}<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span>          <span style=color:#a6e22e>日本語</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/button&gt;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/header&gt;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>App</span>;
+<!doctype html><html lang=ja><head><title>Reactで多言語対応する :: TakashiBlog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="こんにちは、たかしです。
+Reactで多言語対応をする機会があったので、方法についてまとめます。
+react-i18next を使います。
+create-react-appで作ったプロジェクトをいじっていきます。
+また、今回書いたコードはgithubに上げてます。
+takashiTkg/i18n-sample
+準備 とりあえずcreate-react-appします。
+npx create-react-app i18n-sample 今回使うreact-i18nextと必要なライブラリを追加します。
+yarn add react-i18next i18next i18next-browser-languagedetector i18next-http-backend 言語ファイルの作成 プロジェクトのpublicフォルダ内に言語ファイルを配置していきます。
+日本語ファイルから
+{ &#34;sample&#34;:{ &#34;text1&#34;: &#34;テキスト1&#34;, &#34;text2&#34;:&#34;テキスト2&#34; } } 次は英語ファイル
+{ &#34;sample&#34;:{ &#34;text1&#34;: &#34;text1&#34;, &#34;text2&#34;:&#34;text2&#34; } } 設定ファイル(i18n.js)の作成 プロジェクトのsrcフォルダ内にi18n.jsを作成します。
+設定を記述していきます。
+基本的に公式のものを丸パクリです。
+import i18n from 'i18next'; import Backend from 'i18next-http-backend'; import LanguageDetector from 'i18next-browser-languagedetector'; import { initReactI18next } from 'react-i18next'; i18n .use(Backend) .use(LanguageDetector) .use(initReactI18next) .init({ fallbackLng: 'en', debug: true, interpolation: { escapeValue: false, // not needed for react as it escapes by default }, }); export default i18n; 設定ファイルをindex.js内でインポートします。
+import React from 'react'; import ReactDOM from 'react-dom'; import './index.css'; import App from './App'; // i18n import './i18n'; ReactDOM.render( <React.StrictMode> <App /> </React.StrictMode>, document.getElementById('root') ); 言語切替の実装 hooksで書けるので楽に使えます。
+"><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://takashitkg.github.io/blog/posts/react-i18n-sample/><link rel=stylesheet href=https://takashitkg.github.io/blog/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/main.min.775ac2af004d44c22a6d000fbd1d9af529642f5cef27399d0280d180af2c2e9b.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/menu.min.310d32205bdedd6f43144e3c3273c9deecd238eba5f9108db5ea96ca0cfbe377.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/post.min.ad50c7f4d00e7975918f37fc74c6029e1959a40d66fb5b2c6564a8715e985573.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/syntax.min.e9ab635cf918bc84b901eb65c0b2caa74c9544245e3647c1af5c129896ef276e.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css><link rel=stylesheet href=https://takashitkg.github.io/blog/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css><link rel="shortcut icon" href=https://takashitkg.github.io/blog/favicon.png><link rel=apple-touch-icon href=https://takashitkg.github.io/blog/apple-touch-icon.png><meta name=twitter:card content="summary"><meta name=twitter:site content><meta name=twitter:creator content><meta property="og:locale" content="ja"><meta property="og:type" content="article"><meta property="og:title" content="Reactで多言語対応する"><meta property="og:description" content="こんにちは、たかしです。
+Reactで多言語対応をする機会があったので、方法についてまとめます。
+react-i18next を使います。
+create-react-appで作ったプロジェクトをいじっていきます。
+また、今回書いたコードはgithubに上げてます。
+takashiTkg/i18n-sample
+準備 とりあえずcreate-react-appします。
+npx create-react-app i18n-sample 今回使うreact-i18nextと必要なライブラリを追加します。
+yarn add react-i18next i18next i18next-browser-languagedetector i18next-http-backend 言語ファイルの作成 プロジェクトのpublicフォルダ内に言語ファイルを配置していきます。
+日本語ファイルから
+{ &#34;sample&#34;:{ &#34;text1&#34;: &#34;テキスト1&#34;, &#34;text2&#34;:&#34;テキスト2&#34; } } 次は英語ファイル
+{ &#34;sample&#34;:{ &#34;text1&#34;: &#34;text1&#34;, &#34;text2&#34;:&#34;text2&#34; } } 設定ファイル(i18n.js)の作成 プロジェクトのsrcフォルダ内にi18n.jsを作成します。
+設定を記述していきます。
+基本的に公式のものを丸パクリです。
+import i18n from 'i18next'; import Backend from 'i18next-http-backend'; import LanguageDetector from 'i18next-browser-languagedetector'; import { initReactI18next } from 'react-i18next'; i18n .use(Backend) .use(LanguageDetector) .use(initReactI18next) .init({ fallbackLng: 'en', debug: true, interpolation: { escapeValue: false, // not needed for react as it escapes by default }, }); export default i18n; 設定ファイルをindex.js内でインポートします。
+import React from 'react'; import ReactDOM from 'react-dom'; import './index.css'; import App from './App'; // i18n import './i18n'; ReactDOM.render( <React.StrictMode> <App /> </React.StrictMode>, document.getElementById('root') ); 言語切替の実装 hooksで書けるので楽に使えます。
+"><meta property="og:url" content="https://takashitkg.github.io/blog/posts/react-i18n-sample/"><meta property="og:site_name" content="TakashiBlog"><meta property="og:image" content="https://takashitkg.github.io/blog/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="627"><meta property="article:published_time" content="2020-11-07 05:35:07 +0000 UTC"></head><body><div class="container center"><header class=header><div class=header__inner><div class=header__logo><a href=/blog/><div class=logo>TakashiBlog</div></a></div><ul class="menu menu--mobile"><li class=menu__trigger>Menu&nbsp;▾</li><li><ul class=menu__dropdown><li><a href=/blog/about>About</a></li></ul></li></ul></div><nav class=navigation-menu><ul class="navigation-menu__inner menu--desktop"><li><a href=/blog/about>About</a></li></ul></nav></header><div class=content><article class=post><h1 class=post-title><a href=https://takashitkg.github.io/blog/posts/react-i18n-sample/>Reactで多言語対応する</a></h1><div class=post-meta><time class=post-date>2020-11-07</time></div><div class=post-content><div><p>こんにちは、たかしです。</p><p>Reactで多言語対応をする機会があったので、方法についてまとめます。</p><p><a href=https://react.i18next.com/>react-i18next</a> を使います。</p><p>create-react-appで作ったプロジェクトをいじっていきます。</p><p>また、今回書いたコードはgithubに上げてます。</p><p><a href=https://github.com/takashiTkg/i18n-sample>takashiTkg/i18n-sample</a></p><h2 id=準備>準備<a href=#準備 class=hanchor arialabel=Anchor>#</a></h2><p>とりあえずcreate-react-appします。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npx create-react-app i18n-sample
+</span></span></code></pre></div><p>今回使うreact-i18nextと必要なライブラリを追加します。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>yarn add react-i18next i18next i18next-browser-languagedetector i18next-http-backend
+</span></span></code></pre></div><h2 id=言語ファイルの作成>言語ファイルの作成<a href=#言語ファイルの作成 class=hanchor arialabel=Anchor>#</a></h2><p>プロジェクトのpublicフォルダ内に言語ファイルを配置していきます。</p><p>日本語ファイルから</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json:public/locales/ja/translation.json data-lang=json:public/locales/ja/translation.json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;sample&#34;</span><span class=p>:{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;text1&#34;</span><span class=p>:</span> <span class=s2>&#34;テキスト1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;text2&#34;</span><span class=p>:</span><span class=s2>&#34;テキスト2&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>次は英語ファイル</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json:public/locales/en/translation.json data-lang=json:public/locales/en/translation.json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;sample&#34;</span><span class=p>:{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;text1&#34;</span><span class=p>:</span> <span class=s2>&#34;text1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;text2&#34;</span><span class=p>:</span><span class=s2>&#34;text2&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=設定ファイルi18njsの作成>設定ファイル(i18n.js)の作成<a href=#設定ファイルi18njsの作成 class=hanchor arialabel=Anchor>#</a></h2><p>プロジェクトのsrcフォルダ内にi18n.jsを作成します。</p><p>設定を記述していきます。</p><p>基本的に公式のものを丸パクリです。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>i18n</span> <span class=nx>from</span> <span class=s1>&#39;i18next&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=nx>Backend</span> <span class=nx>from</span> <span class=s1>&#39;i18next-http-backend&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=nx>LanguageDetector</span> <span class=nx>from</span> <span class=s1>&#39;i18next-browser-languagedetector&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>initReactI18next</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react-i18next&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>i18n</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=nx>Backend</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=nx>LanguageDetector</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=nx>initReactI18next</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>init</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fallbackLng</span><span class=o>:</span> <span class=s1>&#39;en&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>debug</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>interpolation</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>escapeValue</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>// not needed for react as it escapes by default
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>i18n</span><span class=p>;</span>
+</span></span></code></pre></div><p>設定ファイルをindex.js内でインポートします。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript:index.js data-lang=javascript:index.js><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=nx>ReactDOM</span> <span class=nx>from</span> <span class=s1>&#39;react-dom&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=s1>&#39;./index.css&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=nx>App</span> <span class=nx>from</span> <span class=s1>&#39;./App&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// i18n
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>import</span> <span class=s1>&#39;./i18n&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>ReactDOM</span><span class=p>.</span><span class=nx>render</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=o>&lt;</span><span class=nx>React</span><span class=p>.</span><span class=nx>StrictMode</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>App</span> <span class=o>/&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=o>&lt;</span><span class=err>/React.StrictMode&gt;,</span>
+</span></span><span class=line><span class=cl>  <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;root&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>);</span>
+</span></span></code></pre></div><h2 id=言語切替の実装>言語切替の実装<a href=#言語切替の実装 class=hanchor arialabel=Anchor>#</a></h2><p>hooksで書けるので楽に使えます。</p><p>App.jsを編集していきます。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>logo</span> <span class=nx>from</span> <span class=s1>&#39;./logo.svg&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=s1>&#39;./App.css&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>useTranslation</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react-i18next&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>{</span> <span class=nx>t</span><span class=p>,</span> <span class=nx>i18n</span> <span class=p>}</span> <span class=o>=</span> <span class=nx>useTranslation</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>changeLanguage</span> <span class=o>=</span> <span class=p>(</span><span class=nx>lang</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>i18n</span><span class=p>.</span><span class=nx>changeLanguage</span><span class=p>(</span><span class=nx>lang</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span> <span class=nx>className</span><span class=o>=</span><span class=s2>&#34;App&#34;</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>header</span> <span class=nx>className</span><span class=o>=</span><span class=s2>&#34;App-header&#34;</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>img</span> <span class=nx>src</span><span class=o>=</span><span class=p>{</span><span class=nx>logo</span><span class=p>}</span> <span class=nx>className</span><span class=o>=</span><span class=s2>&#34;App-logo&#34;</span> <span class=nx>alt</span><span class=o>=</span><span class=s2>&#34;logo&#34;</span> <span class=o>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>{</span><span class=nx>t</span><span class=p>(</span><span class=s1>&#39;sample.text1&#39;</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>{</span><span class=nx>t</span><span class=p>(</span><span class=s1>&#39;sample.text2&#39;</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>changeLanguage</span><span class=p>(</span><span class=s1>&#39;en&#39;</span><span class=p>)}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=nx>English</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>changeLanguage</span><span class=p>(</span><span class=s1>&#39;ja&#39;</span><span class=p>)}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=nx>日本語</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=err>/header&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>App</span><span class=p>;</span>
 </span></span></code></pre></div><p><code>t('sample.text1')</code>のようにすると囲んだ部分が翻訳されます。</p><p><code>i18n.changeLanguage('ja');</code>
-のように言語切替できるようになります。</p><h2 id=まとめ>まとめ</h2><p>SSRをする場合やクラスコンポーネントを使いたい場合などは公式のドキュメントにきちんと書いてあるので読んでみてください。</p><p>思ったより簡単に実装できて良かったです。</p></div></article><div class="border-t flex-grow border-gray-400 mt-6"></div><div class="flex-col md:flex md:flex-row md:justify-between my-8"><a class="font-semibold text-xl hover:text-blue-800 flex items-center" href=https://takashitkg.github.io/blog/posts/go-to-hellowork/><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0 4-4m-4 4h18"/></svg>ハローワーク行きました
-</a><a class="font-semibold text-xl hover:text-blue-800 block text-right w-full md:w-auto" href=https://takashitkg.github.io/blog/posts/akeome/>2020年を振り返る<svg class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentcolor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0-4 4m4-4H3"/></svg></a></div></main><footer class="container mx-auto md:px-52 px-8 mt-auto"><p class="py-2 text-gray-600">&copy; 2025 <a href=https://takashitkg.github.io/blog/>takashi Blog</a></p></footer><script src=https://takashitkg.github.io/blog/js/single-header.js></script><script src=https://takashitkg.github.io/blog/js/code-title.js></script></body></html>
+のように言語切替できるようになります。</p><h2 id=まとめ>まとめ<a href=#まとめ class=hanchor arialabel=Anchor>#</a></h2><p>SSRをする場合やクラスコンポーネントを使いたい場合などは公式のドキュメントにきちんと書いてあるので読んでみてください。</p><p>思ったより簡単に実装できて良かったです。</p></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><a href=https://takashitkg.github.io/blog/posts/akeome/ class="button inline prev">&lt; [<span class=button__text>2020年を振り返る</span>]
+</a>::
+<a href=https://takashitkg.github.io/blog/posts/go-to-hellowork/ class="button inline next">[<span class=button__text>ハローワーク行きました</span>] ></a></div></div></article></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>© 2025 takashi</span>
+<span>:: <a href=https://github.com/panr/hugo-theme-terminal target=_blank>Theme</a> made by <a href=https://github.com/panr target=_blank>panr</a></span></div></div></footer><script type=text/javascript src=/blog/bundle.min.js></script></div></body></html>
