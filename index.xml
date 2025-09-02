@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TakashiBlog</title><link>https://takashitkg.github.io/blog/</link><description>Recent content on TakashiBlog</description><generator>Hugo</generator><language>ja</language><copyright>takashi</copyright><lastBuildDate>Tue, 02 Sep 2025 15:00:00 +0000</lastBuildDate><atom:link href="https://takashitkg.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>TinaCMSでHugoを更新する</title><link>https://takashitkg.github.io/blog/posts/tinacmshugo/</link><pubDate>Tue, 02 Sep 2025 15:00:00 +0000</pubDate><guid>https://takashitkg.github.io/blog/posts/tinacmshugo/</guid><description>&lt;p&gt;こんばんは
-最近スマホからブログを更新したいと思い、色々調べていました。
-このブログはmarkdownで書いていて、githubリポジトリにpushされたときにhugoでbuildされるようになっています。
-PCからはVScodeなどで更新すれば良かったのですが、スマホからは更新が困難でした。
-また、レスポンシブ対応しているCMSもそんなに無くて自分で作るかな〜と思っていました。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TakashiBlog</title><link>https://takashitkg.github.io/blog/</link><description>Recent content on TakashiBlog</description><generator>Hugo</generator><language>ja</language><copyright>takashi</copyright><lastBuildDate>Tue, 02 Sep 2025 15:00:00 +0000</lastBuildDate><atom:link href="https://takashitkg.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>TinaCMSでHugoを更新する</title><link>https://takashitkg.github.io/blog/posts/tinacmshugo/</link><pubDate>Tue, 02 Sep 2025 15:00:00 +0000</pubDate><guid>https://takashitkg.github.io/blog/posts/tinacmshugo/</guid><description>&lt;p&gt;こんばんは&lt;/p&gt;
+&lt;p&gt;最近スマホからブログを更新したいと思い、色々調べていました。&lt;/p&gt;
+&lt;p&gt;このブログはmarkdownで書いていて、githubリポジトリにpushされたときにhugoでbuildされるようになっています。&lt;/p&gt;
+&lt;p&gt;PCからはVScodeなどで更新すれば良かったのですが、スマホからは更新が困難でした。&lt;/p&gt;
+&lt;p&gt;また、レスポンシブ対応しているCMSもそんなに無くて自分で作るかな〜と思っていました。&lt;/p&gt;
 &lt;p&gt;最近になってTinaCMSを見つけました。
 &lt;a href="https://tina.io/"&gt;https://tina.io/&lt;/a&gt;
 私のニーズにぴったりでした。
-Hugoとの統合も簡単にできて、既存のブログを維持しつつブログの投稿機能を追加できました。
-編集した内容はリポジトリにmarkdownファイルとして変更が記録されるので、github actionsでビルドできます。&lt;/p&gt;
+Hugoとの統合も簡単にできて、既存のブログを維持しつつブログの投稿機能を追加できました。&lt;/p&gt;
+&lt;p&gt;編集した内容はリポジトリにmarkdownファイルとして変更が記録されるので、github actionsでビルドできます。&lt;/p&gt;
 &lt;p&gt;エディタの動作は少し怪しいですが、自分でカスタマイズもてきるのでこれから使っていこうと思います。&lt;/p&gt;</description></item><item><title>tinaCMSからの投稿テスト</title><link>https://takashitkg.github.io/blog/posts/tinacms/index.md/</link><pubDate>Mon, 01 Sep 2025 15:00:00 +0000</pubDate><guid>https://takashitkg.github.io/blog/posts/tinacms/index.md/</guid><description>&lt;p&gt;うおおおおおおおおお&lt;/p&gt;</description></item><item><title>30歳になりました</title><link>https://takashitkg.github.io/blog/posts/takashi-san-10sai/</link><pubDate>Thu, 12 Dec 2024 00:00:00 +0900</pubDate><guid>https://takashitkg.github.io/blog/posts/takashi-san-10sai/</guid><description>&lt;p&gt;こんばんは、たかしです。&lt;br&gt;
 今日でなんと30歳になりました。&lt;br&gt;
 早いですね、ついこの間まで20歳くらいだった気がします。&lt;/p&gt;
