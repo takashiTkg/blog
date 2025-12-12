@@ -1,4 +1,67 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on TakashiBlog</title><link>https://takashitkg.github.io/blog/posts/</link><description>Recent content in Posts on TakashiBlog</description><generator>Hugo</generator><language>ja</language><copyright>takashi</copyright><lastBuildDate>Tue, 02 Sep 2025 15:00:00 +0000</lastBuildDate><atom:link href="https://takashitkg.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>TinaCMSでHugoを更新する</title><link>https://takashitkg.github.io/blog/posts/tinacmshugo/</link><pubDate>Tue, 02 Sep 2025 15:00:00 +0000</pubDate><guid>https://takashitkg.github.io/blog/posts/tinacmshugo/</guid><description>&lt;p&gt;こんばんは&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on TakashiBlog</title><link>https://takashitkg.github.io/blog/posts/</link><description>Recent content in Posts on TakashiBlog</description><generator>Hugo</generator><language>ja</language><copyright>takashi</copyright><lastBuildDate>Fri, 12 Dec 2025 20:32:07 +0900</lastBuildDate><atom:link href="https://takashitkg.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>2025年の振り返り</title><link>https://takashitkg.github.io/blog/posts/2025-12-12/</link><pubDate>Fri, 12 Dec 2025 20:32:07 +0900</pubDate><guid>https://takashitkg.github.io/blog/posts/2025-12-12/</guid><description>&lt;p&gt;こんにちは、たかしです。&lt;br&gt;
+これは&lt;a href="https://adventar.org/calendars/11814"&gt;ねこねっとアドベントカレンダー 1999 Advent Calendar 2025&lt;/a&gt;の 12日目の記事です。&lt;/p&gt;
+&lt;div class="text-center max-w-full"&gt;
+ 
+ &lt;iframe
+ src='https://adventar.org/calendars/11814/embed'
+ height="362"
+ frameborder="0"
+ loading="lazy"
+ class="w-full"
+ &gt;&lt;/iframe&gt;
+ 
+&lt;/div&gt;
+
+&lt;h2 id="はじめに"&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;実はこのアドベントカレンダー記事を投稿する12月12日は私の誕生日で、この度31歳になりました。&lt;br&gt;
+30歳は人生の節目と言われており、いろんなことが起こったように思いますので、振り返っていこうと思います。&lt;br&gt;
+以下、全部自分語りです。&lt;/p&gt;
+&lt;h2 id="1月3月"&gt;1月～3月&lt;/h2&gt;
+&lt;p&gt;正直何してたか覚えていません。&lt;br&gt;
+年末に普通に案件あって仕事してるのに忘年会の幹事とかいうゴミタスク振られたせいでクソ忙しくて、その腹いせに正月にお酒を飲みまくったらアルコールで脳が小さくなりました。&lt;/p&gt;
+&lt;p&gt;これは労災だと思います。&lt;br&gt;
+人のことを考えずにタスクを振るな。&lt;/p&gt;
+&lt;p&gt;あと、実務経験6年くらいの中途の人が入ってきてコンビを組んだのですが、普通に新卒以下って感じだったので僕が分身したりもしました。&lt;br&gt;
+気が狂う。&lt;/p&gt;
+&lt;p&gt;それ以外を何も覚えていないので、Amazonの注文履歴を見て記憶を掘り返してみたのですが、なんかセールの度に買い物してました。&lt;br&gt;
+Switchbotのシーリングライトはまじでいい買い物でした。&lt;br&gt;
+セールのときは本当に安いのでおすすめです。&lt;/p&gt;
+&lt;h2 id="4月6月"&gt;4月～6月&lt;/h2&gt;
+&lt;p&gt;なんか仕事が忙しくなりました。
+リーダーをやってくれと言われたのですが、内容としては客との折衝とチームの管理と舵取りと開発という感じでした。&lt;/p&gt;
+&lt;p&gt;客が無理なスケジュールを押し付けてくるので上司に相談しましたが、特に有効な手立てを立ててくれなかったので普通にメンタルが調子悪くなりました。&lt;/p&gt;
+&lt;p&gt;当時の上司は基本的に悪い人では無いのですが、僕が何でもYESでやると思っていたらしく「このスケジュールだと厳しいと言うか無理だよ～」と言うとすごい反発されました。&lt;br&gt;
+技術的にはかなり古い人で、あまり大変さをわかっていなかったので、まあ仕方ないかなという感じです。&lt;/p&gt;
+&lt;h2 id="7月9月"&gt;7月～9月&lt;/h2&gt;
+&lt;p&gt;上記の件で流石に限界だったのと、普通に腹が立ったので診断書貰って休職しました。&lt;br&gt;
+SESが主体の会社で受託チームにいたのですが、給料も低いし将来性も無いかなと思い、そのまま辞めることにしました。&lt;br&gt;
+客の言う事聞くだけなら他の会社のほうが給料高いし、今の経験値なら不十分ながらもいろいろ選択肢を取れる市場かなと考えました。&lt;br&gt;
+ただ、転職に用意された期間が短かったため、無職期間を作らないように復職することも覚悟の上でした。&lt;/p&gt;
+&lt;p&gt;幸いにも学生時代の後輩がやっている会社に拾われました。&lt;br&gt;
+インターネットで知り合ったので、今でも僕のことをたかしと呼んできます。&lt;br&gt;
+すごくいいやつです。&lt;/p&gt;
+&lt;p&gt;夏は大変苦手なので、だいたい家の中にいました。&lt;br&gt;
+クーラー発明した人、本当にすごい。&lt;/p&gt;
+&lt;h2 id="10月12月"&gt;10月～12月&lt;/h2&gt;
+&lt;p&gt;転職してから新しい現場にも慣れてきて余裕が出てきました。&lt;br&gt;
+SupabaseとFlutterとReactって感じなのですが、SupabaseとFlutterは初めてなので気が狂いそうになっていました。&lt;br&gt;
+Supabaseは今も気が狂います。
+RLSにころされる～～～&lt;/p&gt;
+&lt;p&gt;精神的にはかなり安定してきて、将来のことを考えられるようになってきました。&lt;/p&gt;
+&lt;p&gt;この頃から交際相手と結婚を考え始めたように思います。&lt;br&gt;
+自分が結婚することは全く想像がつかなかったのですが、特定の相手とずっと一緒にいたいなと思うとまあそうなるか・・・という感じです。&lt;/p&gt;
+&lt;p&gt;まずは一緒に暮らすことから始めたいと思い、二人でお部屋探しをしました。&lt;br&gt;
+SUUMOを見て気になった物件を問い合わせたところ、問い合わせた物件は色んな事情で難しそうという結論になりました。&lt;br&gt;
+自分たちで調べていたエリアとは別のエリアの部屋をいくつか紹介してもらって、非常によかったので申し込みしました。&lt;br&gt;
+今はいろいろ準備をしていて、年明けたら本格的に移り住むつもりです。&lt;br&gt;
+同棲とか結婚ってどうやってやるんだろうと思っていましたが、進み始めるといつの間にか現実になっていて驚いています。&lt;/p&gt;
+&lt;h2 id="まとめ"&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;30歳の1年はいろんなことがあり、人生の転換期とだった感じがします。&lt;br&gt;
+自分は結構飽きっぽいし仕事を辞めたくなることが多いので、いざとなればいろんなところで働けるスキルを身につけてよかったなと感じています。&lt;br&gt;
+年齢的に次の転職が最後かなとは思っていますが、人生はこれからも続くのでわかりませんね。&lt;/p&gt;
+&lt;p&gt;31歳も幸せな1年にできるように頑張っていきたいと思います！&lt;/p&gt;
+&lt;p&gt;明日はみのかわさんが書かれるようなので、是非皆さんチェックしてください！&lt;/p&gt;
+&lt;p&gt;それでは、また。&lt;/p&gt;</description></item><item><title>TinaCMSでHugoを更新する</title><link>https://takashitkg.github.io/blog/posts/tinacmshugo/</link><pubDate>Tue, 02 Sep 2025 15:00:00 +0000</pubDate><guid>https://takashitkg.github.io/blog/posts/tinacmshugo/</guid><description>&lt;p&gt;こんばんは&lt;/p&gt;
 &lt;p&gt;最近スマホからブログを更新したいと思い、色々調べていました。&lt;/p&gt;
 &lt;p&gt;このブログはmarkdownで書いていて、githubリポジトリにpushされたときにhugoでbuildされるようになっています。&lt;/p&gt;
 &lt;p&gt;PCからはVScodeなどで更新すれば良かったのですが、スマホからは更新が困難でした。&lt;/p&gt;
